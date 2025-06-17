@@ -19,6 +19,8 @@ export default function App() {
 
   const [currentChatId, setCurrentChatId] = useState(conversations[0].id);
 
+  const [darkmode , setDarkMode] = React.useState(false)
+ 
   function onNewChat() {
     const newChat = {
       id: crypto.randomUUID(),
@@ -39,15 +41,21 @@ export default function App() {
     );
   }
 
+     function toggleDarkMode() {
+    setDarkMode(!darkmode);
+ // console.log("Dark mode state:", !darkmode);
+  }
+
   const currentChat = conversations.find((c) => c.id === currentChatId);
 
   return (
-    <div className="main-layout">
+    <div className={`main-layout ${darkmode ? 'dark-mode' : ''}`}>
       <Sidebar
         onNewChat={onNewChat}
         conversations={conversations}
         currentChatId={currentChatId}
         setCurrentChatId={setCurrentChatId}
+        toggleDarkMode={toggleDarkMode}
       />
       <div className="chat-container">
         <div className="app-container">
