@@ -1,25 +1,45 @@
 // src/App.jsx
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import ChatMessages from './components/ChatMessages';
 import ChatInput from './components/ChatInput';
 import Sidebar from './components/Sidebar';
 import './App.css'
 
 export default function App() {
-  const [conversations, setConversations] = useState([
-    {
+  const [conversations, setConversations] = useState (()=>{
+    const savedConvos = localStorage.getItem('chatbot-conversations');
+
+    return savedConvos ? JSON.parse(savedConvos) : [{
       id: crypto.randomUUID(),
-      title: 'First Chat',
-      messages: [
-        { id: '1', sender: 'user', message: 'hello chatbot' },
-        { id: '2', sender: 'robot', message: 'Hello! How can I help you?' },
-      ],
-    },
-  ]);
+    title: 'First Chat',
+    messages: [
+      { id: '1', sender: 'user', message: 'hello chatbot' },
+      { id: '2', sender: 'robot', message: 'Hello! How can I help you?' },
+    ],
+    }]
+  })
 
-  const [currentChatId, setCurrentChatId] = useState(conversations[0].id);
 
-  const [darkmode , setDarkMode] = React.useState(false)
+  useEffect(()=>{
+    localStorage.setItem('chatbot-conversations', JSON.stringify(conversations));
+  },[conversations])
+
+  const [currentChatId, setCurrentChatId] = useState(()=>{
+    return localStorage.getItem('chatbot-currentChatId') || conversations[0].id;
+  });
+
+  useEffect(() => {
+  localStorage.setItem('chatbot-currentChatId', currentChatId);
+}, [currentChatId]);
+
+  const [darkmode , setDarkMode] = useState(()=>{
+    const stored = localStorage.getItem('current-darkmode');
+     return stored == 'true';
+  })
+
+  useEffect(()=>{
+    localStorage.setItem('current-darkmode',darkmode);
+  },[darkmode])
  
   function onNewChat() {
     const newChat = {
