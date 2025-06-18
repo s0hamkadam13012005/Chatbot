@@ -4,6 +4,9 @@
   color: white;
   padding: 20px;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .sidebar h2 {
@@ -52,6 +55,9 @@
 .sidebar-list {
   list-style: none;
   padding: 0;
+  margin:0;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .sidebar-list li {
@@ -67,4 +73,13 @@
   color: #4fc3f7;
   background-color: #2a3b4c;
   border-radius: 5px;
+}
+
+.sidebar-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-list::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
 }
