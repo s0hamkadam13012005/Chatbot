@@ -66,7 +66,18 @@
   transition: 0.2s;
   background-color: #3f5661;
   margin: 2px;
-  text-align: center;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-list li span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-grow: 1;
+  margin-right: 8px;
 }
 
 .sidebar-list li:hover {
@@ -82,4 +93,12 @@
 .sidebar-list::-webkit-scrollbar-thumb {
   background-color: #555;
   border-radius: 10px;
+}
+
+.delete-btn {
+  
+  margin-left: 50px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
 }

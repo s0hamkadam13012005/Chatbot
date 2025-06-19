@@ -1,7 +1,7 @@
 // src/components/Sidebar.jsx
 import React from 'react';
 import './Sidebar.css'
-export default function Sidebar({ conversations, currentChatId, setCurrentChatId, onNewChat, toggleDarkMode }) {
+export default function Sidebar({ conversations, currentChatId, setCurrentChatId, onNewChat, toggleDarkMode , deleteChat}) {
   return (
     <div className="sidebar">
       <h2>Chatbot Menu</h2>
@@ -19,8 +19,20 @@ className='darkmode-button'><img src='darkmode.svg' alt="Toggle dark mode"/></bu
             key={chat.id}
             className={chat.id === currentChatId ? 'active-chat' : ''}
             onClick={() => setCurrentChatId(chat.id)}
+            
           >
-            {chat.title || 'Untitled Chat'}
+           <span>{chat.title || 'Untitled Chat'}</span>
+
+              <button
+              className="delete-btn"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent parent click
+                deleteChat(chat.id);
+              }}
+              title="Delete Chat"
+            >
+              🗑
+            </button>
           </li>
         ))}
       </ul>
